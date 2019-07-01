@@ -71,8 +71,8 @@ describe('Model Tasks', () => {
       request
         .post('/tasks')
         .send({
-          title: 'updated title',
-          description: 'updated description',
+          title: 'new title',
+          description: 'new description',
           priority: 'high',
           completed: true
         })

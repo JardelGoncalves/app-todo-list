@@ -74,7 +74,7 @@ describe('Controllers Tasks', () => {
     })
   })
 
-  describe('delete an existing task: getById(params)', () => {
+  describe('delete an existing task: delete(param)', () => {
     it('should delete an existing a task', () => {
       const Task = {
         destroy: td.function()
