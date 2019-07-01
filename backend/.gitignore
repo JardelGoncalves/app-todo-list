@@ -1,0 +1,8 @@
+# remove node_modules
+node_modules
+
+# remove test database
+test/*.sqlite
+
+# remove log yarn
+yarn-error.log
