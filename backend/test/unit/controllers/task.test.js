@@ -14,14 +14,15 @@ describe('Controllers Tasks', () => {
         description: 'Expected description',
         priority: 'low',
         completed: false,
+        user_id: 1,
         created_at: '2019-06-25T15:15:42.6922',
         updated_at: '2019-06-25T15:15:42.6922'
       }]
 
-      td.when(Task.findAll()).thenResolve(expectedResponse)
+      td.when(Task.findAll({ where: { user_id: 1 } })).thenResolve(expectedResponse)
 
       const _taskController = new TaskController(Task)
-      return _taskController.getAll()
+      return _taskController.getAll({ user_id: 1 })
         .then(response => expect(response.data).to.be.eql(expectedResponse))
     })
   })
@@ -38,14 +39,15 @@ describe('Controllers Tasks', () => {
         description: 'Expected description',
         priority: 'low',
         completed: false,
+        user_id: 1,
         created_at: '2019-06-25T15:15:42.6922',
         updated_at: '2019-06-25T15:15:42.6922'
       }
 
-      td.when(Task.findOne({ where: { id: 1 } })).thenResolve(expectedResponse)
+      td.when(Task.findOne({ where: { id: 1, user_id: 1 } })).thenResolve(expectedResponse)
 
       const _taskController = new TaskController(Task)
-      return _taskController.getById({ id: 1 })
+      return _taskController.getById({ id: 1, user_id: 1 })
         .then(response => expect(response.data).to.be.eql(expectedResponse))
     })
   })
@@ -62,6 +64,7 @@ describe('Controllers Tasks', () => {
         description: 'Expected description',
         priority: 'low',
         completed: false,
+        user_id: 1,
         created_at: '2019-06-25T15:15:42.6922',
         updated_at: '2019-06-25T15:15:42.6922'
       }
@@ -80,10 +83,10 @@ describe('Controllers Tasks', () => {
         destroy: td.function()
       }
 
-      td.when(Task.destroy({ where: { id: 1 } })).thenResolve({})
+      td.when(Task.destroy({ where: { id: 1, user_id: 1 } })).thenResolve({})
 
       const _taskController = new TaskController(Task)
-      return _taskController.delete({ id: 1 })
+      return _taskController.delete({ id: 1, user_id: 1 })
         .then(response => expect(response.status).to.be.eql(204))
     })
   })

@@ -7,7 +7,8 @@ describe('Model Tasks', () => {
     title: 'title default',
     description: 'description default',
     priority: 'low',
-    completed: false
+    completed: false,
+    user_id: 1
   }
 
   let token
@@ -40,6 +41,7 @@ describe('Model Tasks', () => {
         description: Joi.string(),
         priority: Joi.string(),
         completed: Joi.boolean(),
+        user_id: Joi.number(),
         createdAt: Joi.date().iso(),
         updatedAt: Joi.date().iso()
       }))
@@ -61,6 +63,7 @@ describe('Model Tasks', () => {
         description: Joi.string(),
         priority: Joi.string(),
         completed: Joi.boolean(),
+        user_id: Joi.number(),
         createdAt: Joi.date().iso(),
         updatedAt: Joi.date().iso()
       })
@@ -82,6 +85,7 @@ describe('Model Tasks', () => {
         description: Joi.string(),
         priority: Joi.string(),
         completed: Joi.boolean(),
+        user_id: Joi.number(),
         createdAt: Joi.date().iso(),
         updatedAt: Joi.date().iso()
       })
@@ -109,6 +113,7 @@ describe('Model Tasks', () => {
         description: Joi.string(),
         priority: Joi.string(),
         completed: Joi.boolean(),
+        user_id: Joi.number(),
         createdAt: Joi.date().iso(),
         updatedAt: Joi.date().iso()
       })

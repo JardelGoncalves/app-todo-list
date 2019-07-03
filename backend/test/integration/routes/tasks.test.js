@@ -7,7 +7,8 @@ describe('Routes Tasks', () => {
     title: 'title default',
     description: 'description default',
     priority: 'low',
-    completed: false
+    completed: false,
+    user_id: 1
   }
 
   let token
