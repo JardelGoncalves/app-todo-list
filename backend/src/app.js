@@ -3,6 +3,8 @@ import dotenv from 'dotenv'
 import datasource from './config/datasource'
 import routesTask from './routes/task'
 import routesUser from './routes/user'
+import routesAuth from './routes/auth'
+import middleAuth from './middlewares/auth'
 
 dotenv.config({
   path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
@@ -19,11 +21,17 @@ class App {
 
   middlewares () {
     this.express.use(express.json())
+
+    // authentication
+    const auth = middleAuth(this.express)
+    this.express.use(auth.initialize())
+    this.express.auth = auth
   }
 
   routes () {
     routesTask(this.express)
     routesUser(this.express)
+    routesAuth(this.express)
   }
 
   config () {
