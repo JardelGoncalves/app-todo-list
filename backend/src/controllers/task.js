@@ -5,8 +5,8 @@ export default class TaskController {
     this.TaskRepository = new TaskRepository(Tasks)
   }
 
-  getAll () {
-    return this.TaskRepository.getAll()
+  getAll (params) {
+    return this.TaskRepository.getAll(params)
       .then(result => result)
   }
 
