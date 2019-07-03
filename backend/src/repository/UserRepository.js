@@ -1,6 +1,5 @@
 import RepositoryBase from './base/RepositoryBase'
 import Validators from '../helpers/validators'
-import { prepareData } from '../helpers/utils'
 
 export default class TaskRepository {
   constructor (Users) {
