@@ -19,12 +19,4 @@ export default (app) => {
       return _userController.getById({ id: req.params.id })
         .then(result => res.status(result.status).json(result.data))
     })
-    .put((req, res) => {
-      return _userController.update({ id: req.params.id }, req.body)
-        .then(result => res.status(result.status).json(result.data))
-    })
-    .delete((req, res) => {
-      return _userController.delete({ id: req.params.id })
-        .then(result => res.status(result.status).send())
-    })
 }
