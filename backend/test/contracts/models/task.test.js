@@ -1,6 +1,7 @@
 describe('Model Tasks', () => {
 
   const Task = app.datasource.models.Tasks
+  const User = app.datasource.models.Users
   const TaskDefault = {
     id: 1,
     title: 'title default',
@@ -9,12 +10,26 @@ describe('Model Tasks', () => {
     completed: false
   }
 
+  let token
+
   beforeEach(done => {
     Task.destroy({ where: {} })
-      .then(() => Task.create(TaskDefault)
-        .then(() => {
-          done()
+      .then(() => {
+        User.destroy({ where: {} })
+          .then(() => User.create({
+            id: 1,
+            name: 'jardel',
+            email: 'jardel@admin.com',
+            password: 'admin'
         }))
+          .then(user => {
+              Task.create(TaskDefault)
+              .then(() => {
+                token = jwt.sign({ id: user.id }, secretKey)
+                done()
+              })
+          })
+      })
   })
 
   describe('Route GET /tasks', () => {
@@ -30,6 +45,7 @@ describe('Model Tasks', () => {
       }))
       request
         .get('/tasks')
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           JoiAssert(res.body, taskLists)
           done(err)
@@ -50,6 +66,7 @@ describe('Model Tasks', () => {
       })
       request
         .get('/tasks/1')
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           JoiAssert(res.body, task)
           done(err)
@@ -70,6 +87,7 @@ describe('Model Tasks', () => {
       })
       request
         .post('/tasks')
+        .set('Authorization', `Bearer ${token}`)
         .send({
           title: 'new title',
           description: 'new description',
@@ -96,6 +114,7 @@ describe('Model Tasks', () => {
       })
       request
         .put('/tasks/1')
+        .set('Authorization', `Bearer ${token}`)
         .send({
           title: 'updated title',
           description: 'updated description'
@@ -111,6 +130,7 @@ describe('Model Tasks', () => {
     it('should delete an existing task', done => {
       request
         .delete('/tasks/1')
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res.status).to.be.eql(204)
           done(err)
