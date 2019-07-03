@@ -5,6 +5,7 @@ export default (app) => {
   const _taskController = new TaskController(Tasks)
 
   app.route('/tasks')
+    .all(app.auth.authenticate())
     .get((req, res) => {
       return _taskController.getAll()
         .then(result => res.status(result.status).json(result.data))
@@ -15,6 +16,7 @@ export default (app) => {
     })
 
   app.route('/tasks/:id')
+    .all(app.auth.authenticate())
     .get((req, res) => {
       return _taskController.getById({ id: req.params.id })
         .then(result => res.status(result.status).json(result.data))
