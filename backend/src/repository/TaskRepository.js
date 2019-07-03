@@ -7,8 +7,8 @@ export default class TaskRepository {
     this.RepositoryBase = new RepositoryBase(Tasks)
   }
 
-  getAll () {
-    return this.RepositoryBase.getAll()
+  getAll (params) {
+    return this.RepositoryBase.getAllByUser(params)
       .then(result => result)
       .catch(err => err)
   }
@@ -19,7 +19,7 @@ export default class TaskRepository {
       'id.integer': 'ID inválido. informe um valor inteiro!'
     })
 
-    return this.RepositoryBase.getById(params, _validators)
+    return this.RepositoryBase.getByIdAndUser(params, _validators)
       .then(result => result)
       .catch(err => err)
   }
