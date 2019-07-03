@@ -24,6 +24,24 @@ export default class ReposittoryBase {
     })
   }
 
+  getAllByUser (params) {
+    return this.Model.findAll({ where: params })
+      .then(result => successResponse(result))
+      .catch(() => errorResponse('Ocorreu um erro inesperado. Contate o administrador!', HttpStatus.INTERNAL_SERVER_ERROR))
+  }
+
+  getByIdAndUser (params, Validator) {
+    if (!Validator.hasError()) {
+      return this.Model.findOne({ where: params })
+        .then(result => successResponse(result))
+        .catch(() => errorResponse('Ocorreu um erro inesperado. Contate o administrador!', HttpStatus.INTERNAL_SERVER_ERROR))
+    }
+
+    return new Promise((resolve, reject) => {
+      resolve(errorResponse(Validator.errors))
+    })
+  }
+
   create (data, Validator) {
     if (!Validator.hasError()) {
       return this.Model.create(data)
