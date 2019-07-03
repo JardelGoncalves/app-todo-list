@@ -77,19 +77,5 @@ describe('Controllers Users', () => {
         .then(response => expect(response.data).to.be.eql(expectedResponse))
     })
   })
-
-  describe('delete an existing user: delete(params)', () => {
-    it('should delete an existing a user', () => {
-      const User = {
-        destroy: td.function()
-      }
-
-      td.when(User.destroy({ where: { id: 1 } })).thenResolve({})
-
-      const _userController = new UserController(User)
-      return _userController.delete({ id: 1 })
-        .then(response => expect(response.status).to.be.eql(204))
-    })
-  })
   
 })

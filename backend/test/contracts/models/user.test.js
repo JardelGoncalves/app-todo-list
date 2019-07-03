@@ -77,37 +77,4 @@ describe('Model Users', () => {
         })
     })
   })
-
-  describe('Route PUT /users/:id', () => {
-    it('should updated an existing user', done => {
-      const user = Joi.object().keys({
-        id: Joi.number(),
-        name: Joi.string(),
-        email: Joi.string(),
-        password: Joi.string(),
-        createdAt: Joi.date().iso(),
-        updatedAt: Joi.date().iso()
-      })
-      request
-        .put('/users/1')
-        .send({
-          name: 'updated user'
-        })
-        .end((err, res) => {
-          JoiAssert(res.body, user)
-          done(err)
-        })
-    })
-  })
-
-  describe('Route DELETE /users/:id', () => {
-    it('should delete an existing user', done => {
-      request
-        .delete('/users/1')
-        .end((err, res) => {
-          expect(res.status).to.be.eql(204)
-          done(err)
-        })
-    })
-  })
 })
