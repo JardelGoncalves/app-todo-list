@@ -42,40 +42,4 @@ export default class TaskRepository {
       .then(result => result)
       .catch(err => err)
   }
-
-  update (params, data) {
-    let prepared = {}
-
-    Object.keys(data).map(key => {
-      prepared = prepareData(data, key, {
-        required: ['name', 'email', 'password'],
-        email: ['email']
-      })
-    })
-    prepared['id.integer'] = params.id
-
-    const _validators = new Validators(prepared, {
-      'id.integer': 'ID informado é inválido',
-      'name.required': 'É necessário informar um valor para name',
-      'email.required': 'É necessário informar um valor para email',
-      'password.required': 'É necessário informar um valor para password',
-      'email.email': 'Email informado inválido'
-    })
-
-    return this.RepositoryBase.update(params, data, _validators)
-      .then(result => result)
-      .catch(err => err)
-  }
-
-  delete (params) {
-    const _validators = new Validators({
-      'id.integer': params.id
-    }, {
-      'id.integer': 'ID informado é inválido!'
-    })
-
-    return this.RepositoryBase.delete(params, _validators)
-      .then(result => result)
-      .catch(err => err)
-  }
 }

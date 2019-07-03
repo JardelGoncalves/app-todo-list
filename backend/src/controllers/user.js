@@ -19,15 +19,4 @@ export default class UserController {
     return this.UserRepository.create(data)
       .then(result => result)
   }
-
-  update (params, data) {
-    delete data['id']
-    return this.UserRepository.update(params, data)
-      .then(result => result)
-  }
-
-  delete (params) {
-    return this.UserRepository.delete(params)
-      .then(result => result)
-  }
 }
