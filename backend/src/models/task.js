@@ -28,6 +28,17 @@ export default (sequelize, DataType) => {
     },
     completed: {
       type: DataType.BOOLEAN
+    },
+    user_id: {
+      type: DataType.INTEGER,
+      references: {
+        model: 'users',
+        key: 'id'
+      },
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     }
   }, {
     hooks: {
