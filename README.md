@@ -16,17 +16,5 @@ Simples aplicativo de gerenciamento de tarefas utilizando `Node JS`, `React JS` 
 <hr>
 - Tela do usuário
 <p align="center">
-  <img width="700" src="frontend/prototipo/Tela do usuario.png">
-</p>
-
-<hr>
-- Tela de adicionar tarefa
-<p align="center">
-  <img width="700" src="frontend/prototipo/Adicionar tarefa.png">
-</p>
-
-<hr>
-- Tela de listar todas as tarefas (exibi as já completadas)
-<p align="center">
-  <img width="700" src="frontend/prototipo/Listar todas as tarefas.png">
+  <img width="700" src="frontend/prototipo/Usuario.png">
 </p>
