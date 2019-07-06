@@ -326,17 +326,17 @@ td.action {
   text-align: right
 }
 
-td.action a {
+td.action button {
   text-decoration: none;
-
+  margin-right: 10px;
 }
 
-td.action a i.done {
+td.action button i.done {
   color: var(--success);
   font-size: 25px
 }
 
-td.action a i.delete {
+td.action button i.delete {
   color: var(--danger);
   font-size: 25px
 }
@@ -813,5 +813,16 @@ div.alert.success {
   
   .push-lg-11 {
     margin-left: 91.66%;
+  }
+}
+
+#lado-a-lado {
+  margin-top: 22px
+}
+
+@media (max-width: 768px) {
+  #lado-a-lado {
+    margin-top: -10px;
+    text-align: right
   }
 }
