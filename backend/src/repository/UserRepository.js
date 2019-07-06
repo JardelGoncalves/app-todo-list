@@ -37,6 +37,10 @@ export default class TaskRepository {
       'email.email': 'Email informado inválido'
     })
 
+    if (!this.RepositoryBase.exists({ email: data.email })) {
+      _validators.errors['email'] = ['Email já possui um cadastro']
+    }
+
     return this.RepositoryBase.create(data, _validators)
       .then(result => result)
       .catch(err => err)
