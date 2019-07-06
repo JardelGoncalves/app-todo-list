@@ -1,5 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import cors from 'cors'
 import datasource from './config/datasource'
 import routesTask from './routes/task'
 import routesUser from './routes/user'
@@ -21,6 +22,7 @@ class App {
 
   middlewares () {
     this.express.use(express.json())
+    this.express.use(cors())
 
     // authentication
     const auth = middleAuth(this.express)
