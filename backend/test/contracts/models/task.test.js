@@ -5,8 +5,6 @@ describe('Model Tasks', () => {
   const TaskDefault = {
     id: 1,
     title: 'title default',
-    description: 'description default',
-    priority: 'low',
     completed: false,
     user_id: 1
   }
@@ -38,8 +36,6 @@ describe('Model Tasks', () => {
       const taskLists = Joi.array().items(Joi.object().keys({
         id: Joi.number(),
         title: Joi.string(),
-        description: Joi.string(),
-        priority: Joi.string(),
         completed: Joi.boolean(),
         user_id: Joi.number(),
         createdAt: Joi.date().iso(),
@@ -60,8 +56,6 @@ describe('Model Tasks', () => {
       const task = Joi.object().keys({
         id: Joi.number(),
         title: Joi.string(),
-        description: Joi.string(),
-        priority: Joi.string(),
         completed: Joi.boolean(),
         user_id: Joi.number(),
         createdAt: Joi.date().iso(),
@@ -82,8 +76,6 @@ describe('Model Tasks', () => {
       const task = Joi.object().keys({
         id: Joi.number(),
         title: Joi.string(),
-        description: Joi.string(),
-        priority: Joi.string(),
         completed: Joi.boolean(),
         user_id: Joi.number(),
         createdAt: Joi.date().iso(),
@@ -94,8 +86,6 @@ describe('Model Tasks', () => {
         .set('Authorization', `Bearer ${token}`)
         .send({
           title: 'new title',
-          description: 'new description',
-          priority: 'high',
           completed: true
         })
         .end((err, res) => {
@@ -110,8 +100,6 @@ describe('Model Tasks', () => {
       const task = Joi.object().keys({
         id: Joi.number(),
         title: Joi.string(),
-        description: Joi.string(),
-        priority: Joi.string(),
         completed: Joi.boolean(),
         user_id: Joi.number(),
         createdAt: Joi.date().iso(),
@@ -122,7 +110,6 @@ describe('Model Tasks', () => {
         .set('Authorization', `Bearer ${token}`)
         .send({
           title: 'updated title',
-          description: 'updated description'
         })
         .end((err, res) => {
           JoiAssert(res.body, task)

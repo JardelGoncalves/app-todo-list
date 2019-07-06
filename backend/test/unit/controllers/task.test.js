@@ -11,8 +11,6 @@ describe('Controllers Tasks', () => {
       const expectedResponse = [{
         id: 1,
         title: 'Expected title',
-        description: 'Expected description',
-        priority: 'low',
         completed: false,
         user_id: 1,
         created_at: '2019-06-25T15:15:42.6922',
@@ -36,8 +34,6 @@ describe('Controllers Tasks', () => {
       const expectedResponse = {
         id: 1,
         title: 'Expected title',
-        description: 'Expected description',
-        priority: 'low',
         completed: false,
         user_id: 1,
         created_at: '2019-06-25T15:15:42.6922',
@@ -61,8 +57,6 @@ describe('Controllers Tasks', () => {
       const expectedResponse = {
         id: 1,
         title: 'Expected title',
-        description: 'Expected description',
-        priority: 'low',
         completed: false,
         user_id: 1,
         created_at: '2019-06-25T15:15:42.6922',

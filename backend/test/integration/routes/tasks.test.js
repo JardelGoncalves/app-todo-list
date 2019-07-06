@@ -5,8 +5,6 @@ describe('Routes Tasks', () => {
   const TaskDefault = {
     id: 1,
     title: 'title default',
-    description: 'description default',
-    priority: 'low',
     completed: false,
     user_id: 1
   }
@@ -41,8 +39,6 @@ describe('Routes Tasks', () => {
         .end((err, res) => {
           expect(res.body[0].id).to.be.eql(TaskDefault.id)
           expect(res.body[0].title).to.be.eql(TaskDefault.title)
-          expect(res.body[0].description).to.be.eql(TaskDefault.description)
-          expect(res.body[0].priority).to.be.eql(TaskDefault.priority)
           expect(res.body[0].completed).to.be.eql(TaskDefault.completed)
           done(err)
         })
@@ -57,8 +53,6 @@ describe('Routes Tasks', () => {
         .end((err, res) => {
           expect(res.body.id).to.be.eql(TaskDefault.id)
           expect(res.body.title).to.be.eql(TaskDefault.title)
-          expect(res.body.description).to.be.eql(TaskDefault.description)
-          expect(res.body.priority).to.be.eql(TaskDefault.priority)
           expect(res.body.completed).to.be.eql(TaskDefault.completed)
           done(err)
         })
@@ -70,8 +64,6 @@ describe('Routes Tasks', () => {
       const newTask = {
         id: 2,
         title: 'new title',
-        description: 'nwq description',
-        priority: 'high',
         completed: false
       }
       request
@@ -81,8 +73,6 @@ describe('Routes Tasks', () => {
         .end((err, res) => {
           expect(res.body.id).to.be.eql(newTask.id)
           expect(res.body.title).to.be.eql(newTask.title)
-          expect(res.body.description).to.be.eql(newTask.description)
-          expect(res.body.priority).to.be.eql(newTask.priority)
           expect(res.body.completed).to.be.eql(newTask.completed)
           done(err)
         })
@@ -93,7 +83,6 @@ describe('Routes Tasks', () => {
     it('should update a task', done => {
       const updateTask = {
         id: 1,
-        priority: 'high',
         completed: true
       }
       request
@@ -103,8 +92,6 @@ describe('Routes Tasks', () => {
         .end((err, res) => {
           expect(res.body.id).to.be.eql(TaskDefault.id)
           expect(res.body.title).to.be.eql(TaskDefault.title)
-          expect(res.body.description).to.be.eql(TaskDefault.description)
-          expect(res.body.priority).to.be.eql(updateTask.priority)
           expect(res.body.completed).to.be.eql(updateTask.completed)
           done(err)
         })
