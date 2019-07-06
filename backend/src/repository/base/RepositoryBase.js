@@ -82,4 +82,16 @@ export default class ReposittoryBase {
       resolve(errorResponse(Validator.errors))
     })
   }
+
+  exists (params) {
+    let response = false
+    this.Model.findOne({ where: params })
+      .then(result => {
+        if (result) {
+          response = true
+        }
+      })
+    
+    return response
+  }
 }
