@@ -17,7 +17,7 @@ class CadastroPage extends Component {
   handleCadastro = e => {
     e.preventDefault()
     const { name, email, password } = this.state
-    if (!name || !email || !password) {
+    if (!name || !email.trim() || !password.trim()) {
       this.setState({ error: "Preencha todos os dados para se cadastrar" })
     } else {
         api.post("/users", { name, email, password })
@@ -32,19 +32,17 @@ class CadastroPage extends Component {
     }
   }
 
-  handleErrorMessage = (messages) => {
-    let arrayMessage = []
+  handleErrorMessage = messages => {
     if (typeof messages === 'object') {
-      Object.keys(messages).map(key => {
-        for (let i = 0; i < messages[key].length; i++) {
-          const prepareMessage = <li>{messages[key][i]}</li>
-          arrayMessage.push(prepareMessage)
-        }
-      })
-    } else {
-      arrayMessage.push(messages)
+      let arrayMessage = []
+      for (let key in messages) {
+        if (!messages.hasOwnProperty(key)) continue
+          arrayMessage.push(<li key={key}><i className="material-icons">error</i>{messages[key][0]}</li>)
+      }
+      return arrayMessage
     }
-    return arrayMessage
+
+    return <li key='message'><i className="material-icons">error</i>{messages}</li>
   }
 
   render() {
@@ -66,7 +64,7 @@ class CadastroPage extends Component {
                 <h1>Crie uma conta agora</h1>
               </div>
 
-              {this.state.error && <div className='alert error'><ul>{this.handleErrorMessage(this.state.error)}</ul> </div>}
+              {this.state.error && <div className='alert error'><ul style={{listStyle: 'none'}}>{this.handleErrorMessage(this.state.error)}</ul> </div>}
 
               {this.state.success &&
               <div className='alert success'>Cadastro realizado com sucesso! <Link to='/'><strong>Clique aqui</strong></Link> e faça login</div>}
