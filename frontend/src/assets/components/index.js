@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 export const Container = ({ children }) => (
   <div className='container'>
@@ -12,8 +12,8 @@ export const Row = ({ children }) => (
   </div>
 )
 
-export const Col = ({ className, children }) => (
-  <div className={className}>
+export const Col = ({ className, id, style, children }) => (
+  <div className={className} id={id} style={style}>
     {children}
   </div>
 )
