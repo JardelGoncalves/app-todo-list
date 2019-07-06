@@ -9,9 +9,8 @@ export default class Authenticate {
 
   authenticator (data, app) {
     const { email, password } = data
-    let response
     if (email && password) {
-      response = this.Users.findOne({ where: { email } })
+      return this.Users.findOne({ where: { email } })
         .then(user => {
           if (user && user.comparePassword(password)) {
             const payload = { id: user.id }
@@ -29,9 +28,9 @@ export default class Authenticate {
         })
         .catch(err => errorResponse(err.message, HttpStatus.UNAUTHORIZED))
     } else {
-      return errorResponse('Password ou email inválido!', HttpStatus.UNAUTHORIZED)
+      return new Promise((resolve, reject) => {
+        resolve(errorResponse('Password ou email inválido!', HttpStatus.UNAUTHORIZED))
+      })
     }
-
-    return response
   }
 }
