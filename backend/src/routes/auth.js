@@ -4,7 +4,7 @@ export default (app) => {
   const Users = app.datasource.models.Users
   const authController = new AuthController(Users)
 
-  app.route('/login')
+  app.route('/session')
     .post((req, res) => {
       authController.authenticator(req.body, app)
         .then(result => {
