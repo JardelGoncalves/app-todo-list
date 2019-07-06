@@ -12,20 +12,6 @@ export default (sequelize, DataType) => {
         notEmpty: true
       }
     },
-    description: {
-      type: DataType.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
-    },
-    priority: {
-      type: DataType.ENUM('low', 'medium', 'high'),
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
-    },
     completed: {
       type: DataType.BOOLEAN
     },
@@ -43,8 +29,8 @@ export default (sequelize, DataType) => {
   }, {
     hooks: {
       beforeCreate: task => {
-        if (task.priority) {
-          task.priority = task.priority.toLowerCase()
+        if (task.completed !== false || task.completed !== true) {
+          task.completed = false
         }
       }
     }
