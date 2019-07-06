@@ -51,16 +51,19 @@ describe('Controllers Users', () => {
   describe('create a user: create(data)', () => {
     it('should create a user', () => {
       const User = {
-        create: td.function()
+        create: td.function(),
+        findOne: td.function()
       }
 
+      td.replace(User, 'findOne')
+      
       const body = {
         id: 1,
         name: 'User expected',
         email: 'user@expected.com',
         password: 'test'
       }
-
+      
       const expectedResponse = {
         id: 1,
         name: 'User expected',
@@ -69,7 +72,8 @@ describe('Controllers Users', () => {
         created_at: '2019-06-25T15:15:42.6922',
         updated_at: '2019-06-25T15:15:42.6922'
       }
-
+      
+      td.when(User.findOne({ where: { email: body.email } })).thenResolve(null)
       td.when(User.create(body)).thenResolve(expectedResponse)
 
       const _userController = new UserController(User)
