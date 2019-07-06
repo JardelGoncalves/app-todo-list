@@ -27,15 +27,9 @@ export default class TaskRepository {
   create (data) {
     const _validators = new Validators({
       'title.required': data.title,
-      'description.required': data.description,
-      'priority.required': data.description,
-      'priority.eql': { value: data.priority.toLowerCase(), possibles: ['low', 'medium', 'high'] },
       'completed.boolean': data.completed
     }, {
       'title.required': 'Nenhum valor informado',
-      'description.required': 'Nenhum valor informado',
-      'priority.required': 'Nenhum valor informado',
-      'priority.eql': 'Os valores permitidos para este campo são: low, medium ou high',
       'completed.boolean': 'Valor booleano inválido. Informe o valor true ou false!'
     })
 
@@ -49,23 +43,17 @@ export default class TaskRepository {
 
     Object.keys(data).map(key => {
       prepared = prepareData(data, key, {
-        required: ['title', 'description', 'priority'],
+        required: ['title'],
         integer: ['id'],
         boolean: ['completed']
       })
     })
 
-    if (data['priority']) {
-      prepared['priority.eql'] = { value: data['priority'], possibles: ['low', 'medium', 'high'] }
-    }
     prepared['id.integer'] = params.id
 
     const _validators = new Validators(prepared, {
       'id.integer': 'ID inválido!',
       'title.required': 'Nenhum valor informado!',
-      'description.required': 'Nenhum valor informado!',
-      'priority.required': 'Nenhum valor informado!',
-      'priority.eql': 'Os valores permitidos para este campo são: low, medium ou high!',
       'completed.boolean': 'Valor booleano inválido. Informe o valor true ou false!'
     })
 
