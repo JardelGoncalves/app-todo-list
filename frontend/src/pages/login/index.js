@@ -16,7 +16,7 @@ class LoginPage extends Component {
   handleLogin = e => {
     e.preventDefault()
     const { email, password } = this.state
-    if (!email.trim() || !password {
+    if (!email.trim() || !password) {
       this.setState({ error: 'Todos os campos são obrigatórios' })
     } else {
       api.post('/session', { email, password })
