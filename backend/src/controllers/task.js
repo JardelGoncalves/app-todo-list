@@ -30,4 +30,9 @@ export default class TaskController {
     return this.TaskRepository.delete(params)
       .then(result => result)
   }
+
+  search(value, userId) {
+    return this.TaskRepository.search(value, userId)
+      .then(result => result)
+  }
 }

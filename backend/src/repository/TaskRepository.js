@@ -73,4 +73,10 @@ export default class TaskRepository {
       .then(result => result)
       .catch(err => err)
   }
+
+  search (value, userId) {
+    return this.RepositoryBase.findWord('title', value, userId)
+      .then(result => result)
+      .catch(err => err)
+  }
 }

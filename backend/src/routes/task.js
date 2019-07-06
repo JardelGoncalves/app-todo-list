@@ -30,4 +30,12 @@ export default (app) => {
       return _taskController.delete({ id: req.params.id, user_id: app.userId })
         .then(result => res.status(result.status).send())
     })
+
+  app.route('/tasks/search/:word')
+    .all(app.auth.authenticate())
+    .get((req, res) => {
+      return _taskController.search(req.params.word, app.userId)
+        .then(result => res.status(result.status).json(result.data))
+    })
+
 }

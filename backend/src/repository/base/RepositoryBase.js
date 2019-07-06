@@ -1,5 +1,6 @@
 import HttpStatus from 'http-status'
 import { successResponse, errorResponse } from '../../helpers/response-default'
+import { Op } from 'sequelize'
 
 export default class ReposittoryBase {
   constructor (Model) {
@@ -83,6 +84,17 @@ export default class ReposittoryBase {
     })
   }
 
+  findWord (field, value, userId) {
+    return this.Model.findAll({ where: {
+      [field]: {
+        [Op.iLike]: '%'+value+'%'
+      },
+      user_id: userId
+    }})
+      .then(response => successResponse(response))
+      .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY))
+  }
+
   exists (params) {
     let response = false
     this.Model.findOne({ where: params })
@@ -91,7 +103,6 @@ export default class ReposittoryBase {
           response = true
         }
       })
-    
     return response
   }
 }
