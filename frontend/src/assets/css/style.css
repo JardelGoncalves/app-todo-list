@@ -98,6 +98,10 @@ a:hover {
   color: var(--primary)
 }
 
+.t-danger {
+  color: red
+}
+
 
 /* Alterar cor do texto e fundo quando seleciona com mouse*/
 ::-moz-selection{
@@ -164,6 +168,15 @@ input:focus {
 
 
 /* Button */
+
+button.transparent {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
 
 .btn-primary {
   border: none;
