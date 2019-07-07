@@ -36,3 +36,5 @@ Após ter realizado e concluido as etapadas citadas acima para rodar o projeto �
 docker-compose up --build
 ```
 caso aconteça algum erro como `Fatal SequelizeConnectionError: the database system is starting up` (ou qualquer outro) rode o mesmo comando citado anteriormente.
+
+Para acessar o projeto, acesse: `http://localhost:7000`
