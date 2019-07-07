@@ -96,13 +96,8 @@ export default class ReposittoryBase {
   }
 
   exists (params) {
-    let response = false
-    this.Model.findOne({ where: params })
-      .then(result => {
-        if (result) {
-          response = true
-        }
-      })
-    return response
+    return this.Model.findOne({ where: params })
+      .then(result => result !== null ? true : false)
+      .catch(() => false)
   }
 }
