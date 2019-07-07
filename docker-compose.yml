@@ -2,8 +2,8 @@ version: "3"
 
 services: 
   frontend:
-    build: frontend
-    command: npm start
+    build: frontend/
+    command: yarn start
     ports:
       - '7000:7000'
     volumes:
@@ -12,8 +12,8 @@ services:
       - backend
   
   backend:
-    build: backend
-    command: npm start
+    build: backend/
+    command: yarn start
     ports:
       - '3000:3000'
     volumes:
