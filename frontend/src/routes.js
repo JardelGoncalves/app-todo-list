@@ -5,6 +5,7 @@ import { isAuthenticated } from './services/auth'
 import LoginPage from './pages/login'
 import CadastroPage from './pages/cadastro'
 import UsuarioPage from './pages/user'
+import NotFound from './pages/not-found'
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -26,7 +27,7 @@ const Routes = () => (
       <Route exact path='/' component={LoginPage} />
       <Route path='/cadastro' component={CadastroPage} />
       <PrivateRoute path='/app' component={UsuarioPage} />
-      <Route path="*" component={() => <h1>Page not found</h1>} />
+      <Route path="*" component={NotFound} />
     </Switch>
   </BrowserRouter>
 )
