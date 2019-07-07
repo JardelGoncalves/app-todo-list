@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
 import api from '../../services/api'
-import { login } from '../../services/auth'
+import { login, logout, setUserId, deleteUserID } from '../../services/auth'
 
 import { Container, Row, Col, Form} from '../../assets/components'
 
@@ -11,6 +11,11 @@ class LoginPage extends Component {
     email: '',
     password: '',
     error: ''
+  }
+
+  componentDidMount() {
+    logout()
+    deleteUserID()
   }
 
   handleLogin = e => {
@@ -22,6 +27,7 @@ class LoginPage extends Component {
       api.post('/session', { email, password })
         .then(response => {
           login(response.data.token)
+          setUserId(response.data.user.id)
           this.props.history.push('/app')
         })
         .catch(err => {
