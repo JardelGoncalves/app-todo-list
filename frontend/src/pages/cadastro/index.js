@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
 import api from "../../services/api"
+import { logout, deleteUserID } from '../../services/auth'
 
 
 import { Container, Row, Col, Form} from '../../assets/components'
@@ -12,6 +13,11 @@ class CadastroPage extends Component {
     password: '',
     error: '',
     success: false
+  }
+
+  componentDidMount() {
+    logout()
+    deleteUserID()
   }
 
   handleCadastro = e => {
