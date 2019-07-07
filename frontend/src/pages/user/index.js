@@ -2,16 +2,27 @@ import React, { Component } from 'react'
 import {Link, withRouter } from 'react-router-dom'
 import api from '../../services/api'
 import { Container, Row, Col} from '../../assets/components'
-import { logout } from '../../services/auth'
+import { logout, getUserId } from '../../services/auth'
 
 class UsuarioPage extends Component {
   state = {
+    username: '',
     title: '',
-    tarefas: []
+    tarefas: [],
+    error: ''
   }
 
   componentDidMount() {
     this.getTarefas()
+
+    const userId = getUserId()
+    api.get('/users/' + userId)
+      .then(response => {
+        this.setState({ username: response.data.name })
+      })
+      .catch(err => {
+        console.log('ERROR: ', err.message)
+      })
   }
 
   getTarefas = () => {
@@ -41,6 +52,42 @@ class UsuarioPage extends Component {
       })
   }
 
+  searchTarefa = () => {
+    const { title } = this.state
+    if (!title) {
+      this.setState({ error: 'Este campo é obrigatório'})
+    } else {
+      api.get('/tasks/search/' + title)
+        .then(response => {
+          this.setState({ error: '', tarefas: response.data })
+        })
+        .catch(err => {
+          console.log('ERROR: ', err)
+        })
+    }
+  }
+
+  addTarefa = () => {
+    const { title } = this.state
+    if (!title) {
+      this.setState({ error: 'Este campo é obrigatório'})
+    } else{
+      api.post('/tasks', { title, completed: false })
+        .then(response => {
+          this.setState({ error: '', title:'' })
+          this.getTarefas()
+        })
+        .catch(err => {
+          console.log('ERROR: ', err)
+        })
+    }
+  }
+
+  restoreTarefas = () => {
+    this.setState({ error: '', title: '' })
+    this.getTarefas()
+  }
+
   deletarTarefa = (id) => {
     api.delete('/tasks/' + id)
       .then(response => {
@@ -58,20 +105,20 @@ class UsuarioPage extends Component {
 
     for (let i = 0; i < this.state.tarefas.length; i ++) {
       linhas.push(
-      <tr key={this.state.tarefas[i].id}>
+      <tr key={i}>
         {this.state.tarefas[i].completed ?
           <td style={{textDecoration: 'line-through'}}>{this.state.tarefas[i].title}</td> :
           <td>{this.state.tarefas[i].title}</td> 
         }  
         <td className="action">
         {!this.state.tarefas[i].completed && 
-        <button onClick={this.completarTarefa.bind(this, this.state.tarefas[i].id)}>
+        <button className="transparent" onClick={this.completarTarefa.bind(this, this.state.tarefas[i].id)}>
             <i className="material-icons done">
               done
             </i>  
           </button>
         }
-          <button onClick={this.deletarTarefa.bind(this, this.state.tarefas[i].id)}>
+          <button className="transparent" onClick={this.deletarTarefa.bind(this, this.state.tarefas[i].id)}>
             <i className="material-icons delete">
               delete_outline
             </i>  
@@ -79,8 +126,8 @@ class UsuarioPage extends Component {
         </td>
       </tr>
       )
-      return linhas
     }
+    return linhas
   }
 
   render () {
@@ -90,7 +137,7 @@ class UsuarioPage extends Component {
           <Row>
             <Col className="col-9 md-9 push-md-1">
               <div className="title-page">
-                <h1>Olá, Fulano de Tal</h1>
+                <h1>Olá, {this.state.username}</h1>
               </div>
               <hr align='left' />
             </Col>
@@ -107,29 +154,32 @@ class UsuarioPage extends Component {
             <Col className="col-12 md-8 push-md-1">
               <div className="form-group t-primary">
                 <label htmlFor="ForAddOrSearch">Adicione ou pesquise por tarefas abaixo</label>
-                <input type="text" name="addOrSearch" id="addOrSearch" placeholder="Adicione ou pesquise por tarefas" />
+                <input type="text" value={this.state.title} name="addOrSearch" id="addOrSearch" placeholder="Adicione ou pesquise por tarefas"
+                  onChange={e => this.setState({ title: e.target.value })}
+                />
+                { this.state.error && <small className='t-danger'>{this.state.error}</small> }
               </div>
             </Col>
             <Col className="col-12 md-3" id="lado-a-lado">
-              <button className="btn-square-success" style={{marginLeft: '4px'}}>
+              <button onClick={this.addTarefa} className="btn-square-success" style={{marginLeft: '4px'}}>
                 <i className="material-icons">
                   add
                 </i>
               </button>
-              <button className="btn-square-info" style={{marginLeft: '4px'}}>
+              <button onClick={this.searchTarefa} className="btn-square-info" style={{marginLeft: '4px'}}>
                 <i className="material-icons">
                   search
                 </i>
               </button>
-              <button className="btn-square-danger" style={{marginLeft: '4px'}}>
+              <button onClick={this.restoreTarefas} className="btn-square-danger" style={{marginLeft: '4px'}}>
                 <i className="material-icons">
-                    close
+                  settings_backup_restore
                 </i>
               </button>
             </Col>
             <Col className="col-12 md-10 push-md-1" style={{marginTop: '96px', marginBottom: '96px'}}>
               <h2 className="t-primary">Tarefas</h2>
-              {!this.state.tarefas.length && <p className="t-primary center" style={{marginTop: '100px'}}>Você não possui nenhuma tarefa</p>} 
+              {!this.state.tarefas.length && <p className="t-primary center" style={{marginTop: '100px'}}>Nenhuma tarefa encontrada</p>} 
               <table>
                 <tbody>
                   {this.showTarefas()}
