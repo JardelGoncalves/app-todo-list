@@ -37,12 +37,21 @@ export default class TaskRepository {
       'email.email': 'Email informado inválido'
     })
 
-    if (this.RepositoryBase.exists({ email: data.email })) {
-      _validators.errors['email'] = ['Email já possui um cadastro']
-    }
+    return this.RepositoryBase.exists({ email: data.email })
+      .then(result => {
+        if (result) {
+          if (Array.isArray(_validators.errors.email)) {
+            _validators.errors.email.push('Email ja possui um cadastro')
+          } else {
+            _validators.errors.email = ['Email ja possui um cadastro']
+          }
+        }
+      })
+      .then(() => {
+        return this.RepositoryBase.create(data, _validators)
+          .then(result => result)
+          .catch(err => err)
+      })
 
-    return this.RepositoryBase.create(data, _validators)
-      .then(result => result)
-      .catch(err => err)
   }
 }
