@@ -31,7 +31,7 @@ E na pasta/diretório `backend` execute o mesmo comando:
 yarn install
 ```
 
-Após ter realizado e concluido as etapadas citadas acima para rodar o projeto é necessário ter o `Docker` e o `docker-compose` instalado em sua máquina e de preferencia seja `linux`. Após checado ou caso você esteja ciente que tais ferramentas estejam instaladas em sua máquina, execute o seguinte comando:
+Após ter realizado e concluido as etapadas citadas acima para rodar o projeto é necessário ter o `Docker` e o `docker-compose` instalado em sua máquina e de preferencia seja `linux`. Após checado ou caso você esteja ciente que tais ferramentas estejam instaladas em sua máquina, na raiz do projeto execute o seguinte comando:
 ```
 docker-compose up --build
 ```
