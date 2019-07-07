@@ -31,7 +31,7 @@ class LoginPage extends Component {
           this.props.history.push('/app')
         })
         .catch(err => {
-          this.setState({ error: err.response.data.error })
+          console.log('ERROR: ', err)
         })
     }
   }
@@ -69,7 +69,7 @@ class LoginPage extends Component {
             </Col>
           </Row>
         </Container>
-        <div className="bg-wave" />
+        <div className="bg-wave" style={{marginTop: '25px'}} />
       </div>
     )
   }
